@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Smart Water Monitoring Dashboard
+    </title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            💧 SMART WATER
+            <span>
+                Monitoring System
+            </span>
+        </div>
+
+        <ul>
+
+            <li class="active">
+                📊 Dashboard
+            </li>
+
+            <li>
+                🖥 Devices
+            </li>
+
+            <li>
+                📄 Logs
+            </li>
+
+            <li>
+                ⚙ Settings
+            </li>
+
+            <li>
+                ❓ Help
+            </li>
+
+        </ul>
+
+        <div class="systemInfo">
+
+            <h3>
+                System Information
+            </h3>
+
+            <p>
+                Device ID :
+                <span id="deviceID">
+                    Waiting...
+                </span>
+            </p>
+
+            <p>
+                ESP32 :
+                <span id="espState">
+                    OFFLINE
+                </span>
+            </p>
+
+            <p>
+                Tank :
+                <span id="tankPercent">
+                    0%
+                </span>
+            </p>
+
+        </div>
+
+    </aside>
+
+    <!-- ================= MAIN SECTION ================= -->
+
+    <main>
+
+        <!-- Top Bar -->
+
+        <div class="topBar">
+
+            <h1>
+                Smart Water Monitoring Dashboard
+            </h1>
+
+            <div class="topRight">
+
+                <div class="ownerName">
+                    T.Deekshith Kumar
+                </div>
+
+                <button id="downloadBtn">
+                    Download CSV
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Status Cards -->
+
+        <div class="cards">
+
+            <div class="card water">
+                <h3>
+                    Water Level
+                </h3>
+
+                <h1 id="waterValue">
+                    0%
+                </h1>
+            </div>
+
+            <div class="card pump">
+                <h3>
+                    Pump Status
+                </h3>
+
+                <h1 id="pumpState">
+                    OFF
+                </h1>
+            </div>
+
+            <div class="card light">
+                <h3>
+                    Light Status
+                </h3>
+
+                <h1 id="lightState">
+                    OFF
+                </h1>
+            </div>
+
+            <div class="card fan">
+                <h3>
+                    Fan Status
+                </h3>
+
+                <h1 id="fanState">
+                    OFF
+                </h1>
+            </div>
+
+        </div>
+
+        <!-- Device Controls -->
+
+        <div class="controls">
+
+            <!-- Fan -->
+
+            <div class="deviceCard">
+
+                <h2>
+                    🔴 FAN
+                </h2>
+
+                <button
+                    onclick="fanControl('ON')">
+                    ON
+                </button>
+
+                <button
+                    onclick="fanControl('OFF')">
+                    OFF
+                </button>
+
+            </div>
+
+            <!-- Light -->
+
+            <div class="deviceCard">
+
+                <h2>
+                    🟡 LIGHT
+                </h2>
+
+                <button
+                    onclick="lightControl('ON')">
+                    ON
+                </button>
+
+                <button
+                    onclick="lightControl('OFF')">
+                    OFF
+                </button>
+
+            </div>
+
+            <!-- Pump -->
+
+            <div class="deviceCard">
+
+                <h2>
+                    🟢 PUMP
+                </h2>
+
+                <button
+                    onclick="pumpControl('ON')">
+                    ON
+                </button>
+
+                <button
+                    onclick="pumpControl('OFF')">
+                    OFF
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Tank + Graph -->
+
+        <div class="middleSection">
+
+            <!-- Tank -->
+
+            <div class="tankCard">
+
+                <h2>
+                    Storage Tank
+                </h2>
+
+                <div class="tank">
+
+                    <div
+                        id="waterFill"
+                        class="waterFill">
+
+                    </div>
+
+                    <!-- Percentage inside tank -->
+
+                    <div
+                        id="tankText"
+                        class="tankText">
+
+                        0%
+
+                    </div>
+
+                </div>
+
+                <div class="tankButtons">
+
+                    <button
+                        onclick="emptyTank()">
+
+                        Empty Tank
+
+                    </button>
+
+                    <button
+                        onclick="fillTank()">
+
+                        Fill To 100%
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- Graph -->
+
+            <div class="graphCard">
+
+                <h2>
+                    Live Water Level Trend
+                </h2>
+
+                <canvas
+                    id="waterChart">
+
+                </canvas>
+
+            </div>
+
+        </div>
+
+        <!-- Logs -->
+
+        <div class="logSection">
+
+            <h2>
+                Activity Logs
+            </h2>
+
+            <div class="tableContainer">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+
+                        <th>
+                            Time
+                        </th>
+
+                        <th>
+                            Device
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                    </tr>
+
+                    </thead>
+
+                    <tbody
+                        id="logTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ================= TERMINAL ================= -->
+
+    <aside class="terminal">
+
+        <h2>
+            VS Code Terminal
+        </h2>
+
+        <div
+            id="terminal"
+            class="terminalBody">
+
+        </div>
+
+    </aside>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
