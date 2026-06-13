@@ -1,0 +1,764 @@
+/* ================= GLOBAL ================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#edf2f7;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* ================= MAIN LAYOUT ================= */
+
+.container{
+    display:grid;
+    grid-template-columns:260px 1fr 330px;
+    gap:20px;
+    min-height:100vh;
+    padding:20px;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+    background:linear-gradient(
+        180deg,
+        #071b34,
+        #0b2c56
+    );
+
+    color:white;
+    border-radius:25px;
+    padding:30px;
+
+    box-shadow:
+    0 15px 30px
+    rgba(
+        0,
+        0,
+        0,
+        .15
+    );
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+    line-height:40px;
+}
+
+.logo span{
+    display:block;
+    font-size:14px;
+    opacity:.8;
+}
+
+.sidebar ul{
+    list-style:none;
+    margin-top:50px;
+}
+
+.sidebar li{
+    padding:18px;
+    margin-bottom:15px;
+    border-radius:15px;
+    cursor:pointer;
+    transition:.3s;
+    font-size:17px;
+}
+
+.sidebar li:hover{
+    background:#1565c0;
+}
+
+.active{
+    background:#1565c0;
+}
+
+.systemInfo{
+    margin-top:60px;
+    background:
+    rgba(
+        255,
+        255,
+        255,
+        .08
+    );
+
+    border-radius:20px;
+    padding:20px;
+}
+
+.systemInfo h3{
+    margin-bottom:20px;
+}
+
+.systemInfo p{
+    margin-bottom:15px;
+}
+
+/* ================= MAIN ================= */
+
+main{
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+}
+
+/* ================= TOP BAR ================= */
+
+.topBar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:20px;
+}
+
+.topBar h1{
+    color:#0b2c56;
+    font-size:32px;
+}
+
+.topRight{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+/* ================= OWNER NAME ================= */
+
+.ownerName{
+    font-size:24px;
+    font-weight:bold;
+
+    background:
+    linear-gradient(
+        90deg,
+        #ff416c,
+        #ff4b2b,
+        #ffd200,
+        #00dbde,
+        #fc00ff
+    );
+
+    background-size:300%;
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    animation:
+    rainbow
+    6s
+    linear
+    infinite;
+}
+
+@keyframes rainbow{
+
+    0%{
+        background-position:0%;
+    }
+
+    100%{
+        background-position:300%;
+    }
+}
+
+/* ================= DOWNLOAD BUTTON ================= */
+
+#downloadBtn{
+    border:none;
+    background:#1565c0;
+    color:white;
+    padding:15px 30px;
+    border-radius:15px;
+    cursor:pointer;
+    font-size:15px;
+    transition:.3s;
+}
+
+#downloadBtn:hover{
+    background:#0d47a1;
+}
+
+/* ================= STATUS CARDS ================= */
+
+.cards{
+    display:grid;
+
+    grid-template-columns:
+    repeat(
+        auto-fit,
+        minmax(
+            220px,
+            1fr
+        )
+    );
+
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border-radius:25px;
+    padding:30px;
+
+    box-shadow:
+    0 10px 25px
+    rgba(
+        0,
+        0,
+        0,
+        .08
+    );
+
+    transition:.3s;
+}
+
+.card:hover{
+    transform:
+    translateY(-5px);
+}
+
+.card h3{
+    color:#555;
+    margin-bottom:20px;
+}
+
+.card h1{
+    font-size:45px;
+}
+
+.water{
+    border-top:
+    6px solid
+    #2196f3;
+}
+
+.pump{
+    border-top:
+    6px solid
+    #4caf50;
+}
+
+.light{
+    border-top:
+    6px solid
+    #ffd600;
+}
+
+.fan{
+    border-top:
+    6px solid
+    #f44336;
+}
+
+/* ================= DEVICE CONTROLS ================= */
+
+.controls{
+    display:grid;
+
+    grid-template-columns:
+    repeat(
+        auto-fit,
+        minmax(
+            250px,
+            1fr
+        )
+    );
+
+    gap:20px;
+}
+
+.deviceCard{
+    background:white;
+    border-radius:25px;
+    padding:30px;
+
+    box-shadow:
+    0 10px 25px
+    rgba(
+        0,
+        0,
+        0,
+        .08
+    );
+
+    transition:.3s;
+}
+
+.deviceCard:hover{
+    transform:
+    translateY(-5px);
+}
+
+.deviceCard h2{
+    margin-bottom:25px;
+    color:#0b2c56;
+}
+
+.deviceCard button{
+    border:none;
+    color:white;
+    padding:14px 25px;
+    border-radius:12px;
+    margin-right:15px;
+    margin-bottom:10px;
+    cursor:pointer;
+    font-size:15px;
+    transition:.3s;
+}
+
+.deviceCard button:first-of-type{
+    background:#2ecc71;
+}
+
+.deviceCard button:last-of-type{
+    background:#e74c3c;
+}
+
+.deviceCard button:hover{
+    opacity:.9;
+}
+
+/* ================= MIDDLE SECTION ================= */
+
+.middleSection{
+    display:grid;
+    grid-template-columns:
+    350px 1fr;
+
+    gap:25px;
+}
+
+/* ================= TANK CARD ================= */
+
+.tankCard,
+.graphCard,
+.logSection{
+    background:white;
+    border-radius:25px;
+    padding:25px;
+
+    box-shadow:
+    0 10px 25px
+    rgba(
+        0,
+        0,
+        0,
+        .08
+    );
+}
+
+/* ================= TANK ================= */
+
+.tank{
+    width:220px;
+    height:380px;
+
+    margin:30px auto;
+
+    border:
+    8px solid
+    #1d1d1d;
+
+    border-radius:25px;
+    overflow:hidden;
+    position:relative;
+}
+
+.waterFill{
+    position:absolute;
+    bottom:0;
+
+    width:100%;
+    height:0%;
+
+    background:
+    linear-gradient(
+        #4fc3f7,
+        #0288d1
+    );
+
+    transition:1s;
+}
+
+.tankText{
+    position:absolute;
+
+    top:50%;
+    left:50%;
+
+    transform:
+    translate(
+        -50%,
+        -50%
+    );
+
+    font-size:45px;
+    font-weight:bold;
+    color:white;
+    z-index:10;
+}
+
+.tankButtons{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.tankButtons button{
+    border:none;
+    padding:15px 20px;
+    border-radius:15px;
+    color:white;
+    cursor:pointer;
+    font-size:15px;
+    transition:.3s;
+}
+
+.tankButtons button:hover{
+    opacity:.9;
+}
+
+.tankButtons button:first-child{
+    background:#2196f3;
+}
+
+.tankButtons button:last-child{
+    background:#2ecc71;
+}
+/* ================= GRAPH ================= */
+
+.graphCard h2{
+    color:#0b2c56;
+    margin-bottom:20px;
+}
+
+.graphCard canvas{
+    width:100% !important;
+    height:400px !important;
+}
+
+/* ================= ACTIVITY LOGS ================= */
+
+.logSection h2{
+    color:#0b2c56;
+    margin-bottom:20px;
+}
+
+.tableContainer{
+    max-height:350px;
+    overflow-y:auto;
+    border-radius:15px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+thead{
+    position:sticky;
+    top:0;
+    z-index:20;
+}
+
+th{
+    background:#1565c0;
+    color:white;
+    padding:15px;
+    text-align:left;
+}
+
+td{
+    padding:15px;
+    border-bottom:1px solid #e0e0e0;
+}
+
+tbody tr{
+    transition:.3s;
+}
+
+tbody tr:hover{
+    background:#f5f9ff;
+}
+
+/* ================= TERMINAL ================= */
+
+.terminal{
+    background:#050d1c;
+    border-radius:25px;
+    padding:25px;
+
+    box-shadow:
+    0 10px 25px
+    rgba(
+        0,
+        0,
+        0,
+        .15
+    );
+
+    display:flex;
+    flex-direction:column;
+}
+
+.terminal h2{
+    color:white;
+    margin-bottom:20px;
+}
+
+.terminalBody{
+    flex:1;
+
+    background:black;
+    color:#00ff66;
+
+    border-radius:20px;
+    padding:20px;
+
+    overflow-y:auto;
+
+    font-family:
+    Consolas,
+    monospace;
+
+    font-size:14px;
+    line-height:28px;
+
+    box-shadow:
+    inset
+    0 0 20px
+    rgba(
+        0,
+        255,
+        102,
+        .2
+    );
+}
+
+/* ================= SCROLLBARS ================= */
+
+::-webkit-scrollbar{
+    width:8px;
+    height:8px;
+}
+
+::-webkit-scrollbar-track{
+    background:#e8e8e8;
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#1565c0;
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#0d47a1;
+}
+
+/* ================= TABLET ================= */
+
+@media(max-width:1300px){
+
+    .container{
+        grid-template-columns:
+        250px 1fr;
+    }
+
+    .terminal{
+        grid-column:1/-1;
+        height:450px;
+    }
+
+    .middleSection{
+        grid-template-columns:
+        1fr;
+    }
+
+    .graphCard canvas{
+        height:350px !important;
+    }
+}
+
+/* ================= iPAD ================= */
+
+@media(max-width:992px){
+
+    .container{
+        display:flex;
+        flex-direction:column;
+    }
+
+    .sidebar{
+        width:100%;
+    }
+
+    .cards{
+        grid-template-columns:
+        repeat(
+            2,
+            1fr
+        );
+    }
+
+    .controls{
+        grid-template-columns:
+        repeat(
+            2,
+            1fr
+        );
+    }
+
+    .middleSection{
+        grid-template-columns:
+        1fr;
+    }
+
+    .terminal{
+        width:100%;
+        height:400px;
+    }
+
+    .terminalBody{
+        height:300px;
+    }
+
+    .graphCard canvas{
+        height:300px !important;
+    }
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:768px){
+
+    .topBar{
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+    }
+
+    .topRight{
+        justify-content:center;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .controls{
+        grid-template-columns:1fr;
+    }
+
+    .middleSection{
+        grid-template-columns:1fr;
+    }
+
+    .tank{
+        width:180px;
+        height:300px;
+    }
+
+    .tankText{
+        font-size:38px;
+    }
+
+    .terminal{
+        height:350px;
+    }
+
+    .terminalBody{
+        height:250px;
+    }
+
+    .graphCard canvas{
+        height:250px !important;
+    }
+}
+
+/* ================= SMALL MOBILE ================= */
+
+@media(max-width:480px){
+
+    .container{
+        padding:10px;
+        gap:15px;
+    }
+
+    .sidebar{
+        padding:20px;
+    }
+
+    .topBar h1{
+        font-size:24px;
+    }
+
+    .ownerName{
+        font-size:20px;
+    }
+
+    #downloadBtn{
+        width:100%;
+    }
+
+    .card{
+        padding:20px;
+    }
+
+    .card h1{
+        font-size:35px;
+    }
+
+    .deviceCard{
+        padding:20px;
+    }
+
+    .deviceCard button{
+        width:100%;
+        margin-bottom:10px;
+        margin-right:0;
+    }
+
+    .tank{
+        width:150px;
+        height:260px;
+    }
+
+    .tankText{
+        font-size:32px;
+    }
+
+    .tankButtons{
+        flex-direction:column;
+    }
+
+    .tankButtons button{
+        width:100%;
+    }
+
+    .terminal{
+        height:320px;
+    }
+
+    .terminalBody{
+        height:220px;
+        font-size:13px;
+    }
+
+    th,
+    td{
+        padding:10px;
+        font-size:13px;
+    }
+}
